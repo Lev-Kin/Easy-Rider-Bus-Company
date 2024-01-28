@@ -1,0 +1,14 @@
+type: code
+files:
+  - name: main.py
+    visible: true
+    text: |-
+      # put your python code here
+      from nltk import TreebankWordTokenizer as TWT
+      
+      text = input()
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/19886#comment
+status: Solved
+record: -1
+submission_language: python3.10

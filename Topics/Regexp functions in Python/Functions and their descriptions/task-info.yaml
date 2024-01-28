@@ -1,0 +1,29 @@
+type: matching
+captions:
+  - <code>re.match()</code>
+  - <code>re.search()</code>
+  - <code>re.findall()</code>
+  - <code>re.split()</code>
+  - <code>re.sub()</code>
+options:
+  - Checks whether a pattern is present at the beginning of the string
+  - Returns all matches in a list
+  - Splits a string based on the pattern
+  - Searches for a pattern and replaces it with the specified piece of text
+  - Checks whether a pattern is present anywhere in the string
+files:
+  - name: main.py
+    visible: true
+    text: |+
+      #  You can experiment here, it won’t be checked
+    
+    learner_created: false
+feedback_link: https://hyperskill.org/learn/step/22003#comment
+status: Solved
+record: -1
+ordering:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4

@@ -1,34 +1,36 @@
 import json
+import re
 
-# Создаем словарь для подсчета ошибок с соответствующими ключами
+# Read JSON data from standard input
+data = json.loads(input())
+
+# Initialize error counters
 error_count = {
-    "bus_id": 0,
-    "stop_id": 0,
     "stop_name": 0,
-    "next_stop": 0,
     "stop_type": 0,
     "a_time": 0
 }
 
-# Получаем данные из ввода
-jdata_dict = json.loads(input())
+# Define the regex for stop names and arrival times
+stop_name_pattern = re.compile(r'^[A-Z].*(Road|Avenue|Boulevard|Street)$')
+a_time_pattern = re.compile(r'^[0-1][0-9]:[0-5][0-9]$|^[2][0-3]:[0-5][0-9]$')
 
-# Проверяем каждую запись в данных
-for line in jdata_dict:
-    if not isinstance(line['bus_id'], int) or not line['bus_id']:
-        error_count["bus_id"] += 1
-    if not isinstance(line['stop_id'], int) or not line['stop_id']:
-        error_count["stop_id"] += 1
-    if not isinstance(line['stop_name'], str) or not line['stop_name']:
+# Validate each entry
+for entry in data:
+    # Validate stop_name
+    if not stop_name_pattern.match(entry["stop_name"]):
         error_count["stop_name"] += 1
-    if not isinstance(line['next_stop'], int):
-        error_count["next_stop"] += 1
-    if not isinstance(line['stop_type'], str) or line['stop_type'] not in ['O', 'S', 'F', '']:
+
+    # Validate stop_type
+    if entry["stop_type"] not in ["S", "O", "F", ""]:
         error_count["stop_type"] += 1
-    if not isinstance(line['a_time'], str) or not line['a_time']:
+
+    # Validate a_time
+    if not a_time_pattern.match(entry["a_time"]):
         error_count["a_time"] += 1
 
-# Выводим результаты
-print(f"Type and required field validation: {sum(error_count.values())} errors")
-for key, value in error_count.items():
-    print(f"{key}: {value}")
+# Print the result
+total_errors = sum(error_count.values())
+print(f"Format validation: {total_errors} errors")
+for field, count in error_count.items():
+    print(f"{field}: {count}")
